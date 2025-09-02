@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Servidor Web Simple</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="images/LOG.jpg" alt="Logo" class="logo">
+        <h1>Servidor Web Simple con Java</h1>
+    </header>
+
+    <div class="container">
+        <!-- Contenido principal -->
+        <main>
+            <!-- HELLO ENDPOINT -->
+            <div class="form-row">
+                <section class="form-card">
+                    <h2>HELLO ENDPOINT</h2>
+                    <button onclick="loadHello()">Ir al Endpoint</button>
+                </section>
+            </div>
+
+            <!-- GREETING ENDPOINT -->
+            <div class="form-row">
+                <section class="form-card">
+                    <h2>GREETING ENDPOINT</h2>
+                    <label for="nameInput">Nombre:</label>
+                    <input type="text" id="nameInput" placeholder="Escribe tu nombre">
+                    <button onclick="loadGreeting()">Enviar</button>
+                </section>
+            </div>
+
+            <!-- Respuestas -->
+            <div class="response-row">
+                <section class="response-card">
+                    <h3>Respuesta del Endpoint HELLO</h3>
+                    <div id="hellorespmsg" class="response-content">
+                        Aquí aparecerá la respuesta del servidor...
+                    </div>
+                </section>
+
+                <section class="response-card">
+                    <h3>Respuesta del Endpoint GREETING</h3>
+                    <div id="greetingrespmsg" class="response-content">
+                        Aquí aparecerá la respuesta del servidor...
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside>
+            <h3>Galería</h3>
+
+            <div class="sidebar-card">
+                <img src="images/UNI.jpg" alt="Foto 1">
+                <h4>Escuela Colombiana de Ingeniería Julio Garavito <span>Saber más</span></h4>
+                <a href="https://www.escuelaing.edu.co/es/" target="_blank" class="sidebar-btn">Leer más</a>
+            </div>
+
+            <div class="sidebar-card">
+                <img src="images/UNI2.jpg" alt="Foto 2">
+                <h4>Bienestar Universitario <span>Saber más</span></h4>
+                <a href="https://www.escuelaing.edu.co/es/campus/presentacion-bienestar-universitario/" target="_blank" class="sidebar-btn">Leer más</a>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        function loadHello() {
+            fetch("/hello")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("hellorespmsg").innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById("hellorespmsg").innerText = "Error: " + error;
+                });
+        }
+
+        function loadGreeting() {
+            const name = document.getElementById("nameInput").value || "World";
+            fetch("/greeting?name=" + encodeURIComponent(name))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("greetingrespmsg").innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById("greetingrespmsg").innerText = "Error: " + error;
+                });
+        }
+    </script>
+</body>
+</html>
