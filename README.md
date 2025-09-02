@@ -97,7 +97,7 @@ Java 17+
 Maven 3.8+
 
 Git
-
+---
 🚀 Execution
 
 Clonar el repositorio:
@@ -124,7 +124,7 @@ mvn exec:java](http://localhost:35000/
 
 
 ```
-
+---
 
 🌐 Available Endpoints
 
@@ -135,18 +135,20 @@ http://localhost:35000/hello
 
 
 ```
-
+---
 🔹 GET /greeting?name=Pedro
 
 ```bash
 
 http://localhost:35000/greeting?name=Pedro
 ```
+---
 🔹 GET /pi (definido manualmente en App.java)
 ```bash
 
 http://localhost:35000/pi
 ```
+---
 🔹 Static Files
 
 ```bash
@@ -157,6 +159,7 @@ http://localhost:35000/app.js
 http://localhost:35000/images/LOGO.png
 )
 ```
+---
 📦 Packaging and Deployment
 
 Generar .jar ejecutable:
@@ -167,6 +170,7 @@ Ejecutar con:
 ```bash
 java -cp target/AREP-LAB3-1.0.0.jar edu.escuelaing.app.App
 ```
+---
 
 🛠️ Technologies
 
@@ -175,7 +179,7 @@ Java 17 – Lenguaje principal.
 Maven – Gestión de dependencias y build.
 
 JUnit – Testing framework.
-
+---
 Reflexión en Java – Motor del IoC framework.
 
 Outcome
@@ -189,7 +193,7 @@ Servir archivos estáticos y recursos dinámicos.
 Entender fundamentos de arquitectura HTTP y cliente-servidor.
 
 Aplicar reflexión y anotaciones para construir frameworks IoC.
-
+---
 ✒️ Author
 
 Proyecto desarrollado por: Santiago Arteaga
