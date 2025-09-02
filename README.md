@@ -1,65 +1,53 @@
-# 🖥️ AREP - Servidor HTTP y Mini Web Framework en Java
+# 🖥️ AREP - MicroSpringBoot & HTTP Server en Java
 
 ## 📌 Project Statement
-**Web Framework Development for REST Services and Static File Management**
+Desarrollo de un **servidor web tipo Apache** en Java, acompañado de un **mini framework IoC** inspirado en Spring Boot.  
+El servidor es capaz de servir archivos estáticos (HTML, CSS, JS, imágenes PNG/JPG) y exponer **servicios REST** a partir de **POJOs anotados**.
 
-Este proyecto tiene como objetivo **transformar un servidor HTTP simple** en un **mini framework web** que permita el desarrollo de aplicaciones con **servicios REST** y la gestión de **archivos estáticos**.  
-
-Con este framework, los desarrolladores podrán definir **endpoints usando funciones lambda**, **manejar parámetros de consulta (query params)** y **especificar la ubicación de archivos estáticos** para construir aplicaciones modernas en Java sin depender de frameworks externos como Spring o Spark.
-
----
-
-##  Objective
-El propósito del proyecto es:
-- Entender y aplicar los principios de la **arquitectura cliente-servidor**.  
-- Construir un **framework básico en Java** para definir servicios REST.  
-- Aprender el manejo de **HTTP**, **protocolos de red** y la **organización de aplicaciones distribuidas**.  
+Este proyecto explora capacidades reflexivas de Java para construir un framework ligero que soporte:
+- Carga dinámica de componentes (`@RestController`).
+- Definición de endpoints REST (`@GetMapping`).
+- Manejo de parámetros (`@RequestParam`).
+- Exploración automática del classpath para registrar controladores.
+- Ejecución de aplicaciones web sin necesidad de frameworks externos.
 
 ---
 
-##  Project Scope and Features
+## 🎯 Objetivo
+- Comprender los principios de la arquitectura cliente-servidor.
+- Construir un servidor HTTP básico en Java.
+- Implementar un mini-framework IoC usando reflexión.
+- Soportar anotaciones tipo Spring para definir servicios REST.
+- Servir archivos estáticos junto con contenido dinámico.
 
-### 1. **GET Static Method for REST Services**
-Permite definir endpoints REST usando funciones lambda:
+---
 
-```java
-get("/hello", (req, res) -> "hello world!");
-```
+## 📦 Alcance y Features
 
-2. Query Value Extraction Mechanism
+### 🔹 Framework IoC
+- **@RestController** → marca clases como controladores REST.
+- **@GetMapping("/path")** → define rutas GET.
+- **@RequestParam** → extrae parámetros de la URL con valores por defecto.
 
-Mecanismo para extraer parámetros de consulta en la URL:
-```bash
-get("/hello", (req, res) -> "hello " + req.getValues("name"));
-```
-3. Static File Location Specification
+### 🔹 Servidor HTTP
+- Maneja **peticiones GET**.
+- Sirve archivos estáticos desde `src/main/resources/public`.
+- Maneja errores básicos: `404 Not Found`, `500 Internal Server Error`.
 
-Define la carpeta para servir archivos estáticos:
-```bash
-staticfiles("webroot/public");
+### 🔹 Escaneo Automático
+- `MicroSpringBoot.run(App.class, args)` explora el classpath y registra automáticamente los controladores anotados.
 
-```
+---
 
-4. Application Example
+## 📂 Project Structure
 
-```bash
-public static void main(String[] args) {
-    staticfiles("/webroot");
 
-    get("/hello", (req, resp) -> "Hello " + req.getValues("name"));
-    get("/pi", (req, resp) -> String.valueOf(Math.PI));
-}
-```
-
-📂 Project Structure
 
 ```text
-
 .
+│   .gitignore
 │   pom.xml
-│
-├───.vscode
-│       settings.json
+│   README.md
 │
 ├───src
 │   ├───main
@@ -67,36 +55,38 @@ public static void main(String[] args) {
 │   │   │   └───edu
 │   │   │       └───escuelaing
 │   │   │           └───app
-│   │   │               ├── App.java              # Definición de endpoints
-│   │   │               ├── MimeTypes.java        # Detección de tipos MIME
-│   │   │               ├── SimpleHttpServer.java # Servidor HTTP principal
-│   │   │               ├── UrlUtils.java         # Utilidad para parsear URLs
+│   │   │               │   App.java
+│   │   │               │
+│   │   │               ├───example
+│   │   │               │       GreetingController.java
+│   │   │               │       HelloController.java
+│   │   │               │
 │   │   │               └───framework
-│   │   │                   ├── Request.java
-│   │   │                   ├── Response.java
-│   │   │                   ├── Route.java
-│   │   │                   └── WebApp.java       # Mini framework
+│   │   │                       Dispatcher.java
+│   │   │                       GetMapping.java
+│   │   │                       MicroSpringBoot.java
+│   │   │                       Request.java
+│   │   │                       RequestParam.java
+│   │   │                       RestController.java
+│   │   │                       SimpleHttpServer.java
+│   │   │                       WebApp.java
+│   │   │
 │   │   └───resources
 │   │       └───public
-│   │           ├── index.html
-│   │           ├── index2.html
-│   │           ├── app.js
-│   │           ├── styles.css
+│   │           │   index.html
+│   │           │   styles.css
+│   │           │   app.js
 │   │           └───images/
-│   │               ├── LOG.jpg
-│   │               ├── LOGO.png
-│   │               ├── LOGO2.jpg
-│   │               ├── LOGO3.jpg
-│   │               ├── UNI.jpg
-│   │               ├── UNI2.jpg
-│   │               └── header-logoescuela.jpg
+│   │                   LOGO.png
+│   │                   LOGO2.jpg
+│   │                   header-logoescuela.jpg
+│   │                   ...
 │   └───test
 │       └───java
 │           └───edu
 │               └───escuelaing
 │                   └───app
-│                       └── AppTest.java
-└── target
+│                           AppTest.java
 
 ```
 
@@ -108,112 +98,102 @@ Maven 3.8+
 
 Git
 
-Verifica versiones instaladas:
-```bash
-java -version
-mvn -v
-```
-Execution
+🚀 Execution
 
 Clonar el repositorio:
-```bash
-git clone https://github.com/usuario/AREP.git
-cd AREP
-```
 
+```bash
+git clone https://github.com/santiagoartgut9/AREP-LAB3.git
+cd AREP-LAB3
+
+```
 Compilar y empaquetar con Maven:
 ```bash
 mvn clean install
-```
 
+```
 Ejecutar el servidor:
 ```bash
 mvn exec:java
+
 ```
+
 Abrir en el navegador:
 ```bash
-http://localhost:8080/
+mvn exec:java](http://localhost:35000/
+
+
 ```
+
 
 🌐 Available Endpoints
+
 🔹 GET /hello
 
-URL:
 ```bash
-http://localhost:8080/hello?name=Pedro
+http://localhost:35000/hello
+
+
 ```
 
-Response:
-Hello Pedro
+🔹 GET /greeting?name=Pedro
 
-🔹 GET /pi
-
-URL:
 ```bash
-http://localhost:8080/pi
-```
-Response:
-3.141592653589793
 
-🔹 POST /echo
+http://localhost:35000/greeting?name=Pedro
+```
+🔹 GET /pi (definido manualmente en App.java)
 ```bash
-URL: http://localhost:8080/echo
+
+http://localhost:35000/pi
 ```
-
-Body (raw text):
-Hola Framework
-
-Response:
-You sent: Hola Framework
-
-Framework
-
 🔹 Static Files
 
-Archivos estáticos servidos desde /public:
 ```bash
-http://localhost:8080/index.html
-
-http://localhost:8080/styles.css
-
-http://localhost:8080/app.js
-
-http://localhost:8080/images/LOGO.png
+[
+http://localhost:35000/pi](http://localhost:35000/index.html
+http://localhost:35000/styles.css
+http://localhost:35000/app.js
+http://localhost:35000/images/LOGO.png
+)
 ```
-
 📦 Packaging and Deployment
 
 Generar .jar ejecutable:
 ```bash
 mvn package
 ```
-
 Ejecutar con:
 ```bash
-java -cp target/AREP-1.0.0.jar edu.escuelaing.app.SimpleHttpServer
+java -cp target/AREP-LAB3-1.0.0.jar edu.escuelaing.app.App
 ```
+
 🛠️ Technologies
 
-Java 17 – Lenguaje principal
+Java 17 – Lenguaje principal.
 
-Maven – Gestión de dependencias y build
+Maven – Gestión de dependencias y build.
 
-JUnit 4 – Testing framework
----
-🎓 Outcome
+JUnit – Testing framework.
 
-Este proyecto dota a los desarrolladores de un mini-framework robusto para crear aplicaciones web con servicios REST y manejo de archivos estáticos. Además, fortalece la comprensión de:
+Reflexión en Java – Motor del IoC framework.
 
-Arquitectura HTTP y cliente-servidor
+Outcome
 
-Arquitectura distribuida en aplicaciones modernas
+Este proyecto implementa un mini framework tipo Spring Boot que permite:
 
-Diseño de servicios web escalables y mantenibles
----
+Crear aplicaciones web en Java con POJOs anotados.
+
+Servir archivos estáticos y recursos dinámicos.
+
+Entender fundamentos de arquitectura HTTP y cliente-servidor.
+
+Aplicar reflexión y anotaciones para construir frameworks IoC.
+
 ✒️ Author
 
-Proyecto desarrollado por:
-Santiago Arteaga 
+Proyecto desarrollado por: Santiago Arteaga
+
 
 
 
